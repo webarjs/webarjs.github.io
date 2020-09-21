@@ -33,31 +33,31 @@
     <!-- a-nft is the anchor that defines an Image Tracking entity -->
     <!-- on 'url' use the path to the Image Descriptors created before. -->
     <!-- the path should end with the name without the extension e.g. if file is 'pinball.fset' the path should end with 'pinball' -->
-    <!-- <a-nft
+    <a-nft
       type="nft"
-      url="./assets/pattern-Lion.patt"
+      url="./assets/Lion"
       smooth="true"
       smoothCount="10"
       smoothTolerance=".01"
-			smoothThreshold="5"> -->
+			smoothThreshold="5">
 			
         <!-- as a child of the a-nft entity, you can define the content to show. here's a GLTF model entity -->
-        <!-- <a-entity
+        <a-entity
             gltf-model="./assets/Lion3D.gltf"
-            scale="5 5 5"
+            scale="1 1 1"
             position="50 150 0">
         </a-entity>
-    </a-nft> -->
+    </a-nft>
     <!-- static camera that moves according to the device movemenents -->
 		<a-entity camera></a-entity>
 		
-		<a-marker-camera preset='custom' type='pattern' url='assets/NAME-OF-PATTERN-FILE.patt'>
+		<!-- <a-marker-camera preset='custom' type='pattern' url='assets/NAME-OF-PATTERN-FILE.patt'>
 			<a-entity
 					gltf-model="./assets/Lion3D.gltf"
 					scale="5 5 5"
 					position="50 150 0">
 			</a-entity>
-		</a-marker-camera>
+		</a-marker-camera> -->
 
   </a-scene>
 	
