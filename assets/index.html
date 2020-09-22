@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Webarjs</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="Library/fontawesome/css/all.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<!--custom file-->
+	<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+	<script src="https://cdn.jsdelivr.net/gh/aframevr/aframe@1c2407b26c61958baa93967b5412487cd94b290b/dist/aframe-master.min.js"></script>
+	<script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js"></script>
+
+	<script src="https://aframe.io/releases/0.6.1/aframe.min.js"></script>
+	<script src="https://jeromeetienne.github.io/AR.js/aframe/build/aframe-ar.js"></script>
+
+  <!-- minimal loader shown until image descriptors are loaded -->
+  <div class="arjs-loader">
+    <div>Loading, please wait...</div>
+  </div>
+  <a-scene
+    vr-mode-ui="enabled: false;"
+    renderer="logarithmicDepthBuffer: true;"
+    embedded
+    arjs="trackingMethod: best; sourceType: webcam;debugUIEnabled: false;"
+  >
+    <!-- we use cors proxy to avoid cross-origin problems -->
+    <a-nft
+      type="nft"
+      url="./assets/img target"
+      smooth="true"
+      smoothCount="10"
+      smoothTolerance=".01"
+			smoothThreshold="5">
+      <!-- <a-entity
+				gltf-model="https://arjs-cors-proxy.herokuapp.com/https://raw.githack.com/AR-js-org/AR.js/master/aframe/examples/image-tracking/nft/trex/scene.gltf"
+        scale="5 5 5"
+        position="50 150 0">
+			</a-entity> -->
+			
+			<!-- <a-sphere 
+				position="0.5 1.5 -0.5"
+				color="white"
+				radius="0.15">
+				<a-animation
+					attribute="color"
+					dur="10000"
+					from="white"
+					to="blue"
+					repeat="indefinite">
+				</a-animation>
+			</a-sphere> -->
+		</a-nft>
+		
+		<!-- <a-marker preset="hiro">
+			<a-obj-model src="https://raw.githubusercontent.com/Lifekor/Home_v2/master/apartment/Apartment.obj" scale="0.2 0.2 0.2"></a-obj-model>
+		</a-marker> -->
+		
+    <a-entity camera></a-entity>
+  </a-scene>
+	
+</body>
+</html>
