@@ -1,65 +1,91 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<title>AR.js</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" href="Library/fontawesome/css/all.css">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-	<!--custom file-->
-	<link rel="stylesheet" href="css/style.css">
-</head>
-<body>
+<script src="https://cdn.jsdelivr.net/gh/aframevr/aframe@1c2407b26c61958baa93967b5412487cd94b290b/dist/aframe-master.min.js"></script>
 
-	<!-- import aframe and then ar.js with image tracking / location based features -->
-	<script src="https://cdn.jsdelivr.net/gh/aframevr/aframe@1c2407b26c61958baa93967b5412487cd94b290b/dist/aframe-master.min.js"></script>
-	<script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js"></script>
+<script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js"></script>
+<script>
+  window.onload = function() {
+    AFRAME.registerComponent("videohandler", {
+      init: function() {
+        var marker = this.el;
 
-	<script src="https://aframe.io/releases/0.6.1/aframe.min.js"></script>
-	<script src="https://jeromeetienne.github.io/AR.js/aframe/build/aframe-ar.js"></script>
+        this.vid = document.querySelector("#vid");
 
-  <!-- minimal loader shown until image descriptors are loaded. Loading may take a while according to the device computational power -->
+        marker.addEventListener(
+          "markerFound",
+          function() {
+            this.vid.play();
+          }.bind(this)
+        );
+
+        marker.addEventListener(
+          "markerLost",
+          function() {
+            this.vid.pause();
+            this.vid.currentTime = 0;
+          }.bind(this)
+        );
+      }
+    });
+  };
+</script>
+
+<style>
+  .arjs-loader {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .arjs-loader div {
+    text-align: center;
+    font-size: 1.25em;
+    color: white;
+  }
+</style>
+
+<body style="margin : 0px; overflow: hidden;">
   <div class="arjs-loader">
     <div>Loading, please wait...</div>
   </div>
-
-  <!-- a-frame scene -->
   <a-scene
     vr-mode-ui="enabled: false;"
-    renderer="logarithmicDepthBuffer: true;"
+    renderer="antialias: true; alpha: true; precision: mediump;"
     embedded
-    arjs="trackingMethod: best; sourceType: webcam;debugUIEnabled: false;">
-    <!-- a-nft is the anchor that defines an Image Tracking entity -->
-    <!-- on 'url' use the path to the Image Descriptors created before. -->
-    <!-- the path should end with the name without the extension e.g. if file is 'pinball.fset' the path should end with 'pinball' -->
-    <a-nft
-      type="nft"
-      url="./assets/Lion"
-      smooth="true"
-      smoothCount="10"
-      smoothTolerance=".01"
-			smoothThreshold="5">
-			
-        <!-- as a child of the a-nft entity, you can define the content to show. here's a GLTF model entity -->
-        <a-entity
-            gltf-model="./assets/Lion3D.gltf"
-            scale="1 1 1"
-            position="50 150 0">
-        </a-entity>
-		</a-nft>
-		
-    <!-- static camera that moves according to the device movemenents -->
-		<a-entity camera></a-entity>
-		
-		<!-- <a-marker-camera preset='custom' type='pattern' url='assets/NAME-OF-PATTERN-FILE.patt'>
-			<a-entity
-					gltf-model="./assets/Lion3D.gltf"
-					scale="5 5 5"
-					position="50 150 0">
-			</a-entity>
-		</a-marker-camera> -->
+    arjs="trackingMethod: best; sourceType: webcam; debugUIEnabled: false;"
+  >
+    <a-assets>
+      <video
+        src="https://cdn.glitch.com/3e641d0e-e339-4228-98f6-3d3a0aa90b70%2FSampleVideo.mp4?v=1591441438404"
+        preload="auto"
+        id="vid"
+        response-type="arraybuffer"
+        loop
+        crossorigin
+        webkit-playsinline
+        autoplay
+        muted
+        playsinline
+      ></video>
+    </a-assets>
 
+    <a-nft
+      videohandler
+      type="nft"
+      url="https://arjs-cors-proxy.herokuapp.com/https://raw.githack.com/allinreality/ARjs_ImageMarker/master/SampleARMarker1"
+      smooth="true"
+      smoothount="10"
+      smoothtolerance="0.01"
+      smooththreshold="5"
+    >
+      <a-video src="#vid" rotation="-90 0 0" position="50 150 -100" width="300" height="175">
+      </a-video>
+    </a-nft>
+    <a-entity camera></a-entity>
   </a-scene>
-	
 </body>
-</html>
